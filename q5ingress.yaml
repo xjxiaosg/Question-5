@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: q5-ingress
+ annotations:
+   kubernetes.io/ingress.class: kong
+spec:
+ rules:
+ - http:
+     paths:
+     - path: /v1/tasks/task
+       pathType: Prefix
+       backend:
+         service:
+           name: rabbitproducer
+           port:
+             number: 80
+     - path: /v1/hello
+       pathType: Prefix
+       backend:
+         service:
+           name: helloapp
+           port:
+             number: 80
